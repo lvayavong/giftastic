@@ -40,7 +40,7 @@
             superHeroDiv.append(pTwo);
 
 
-            var imgURL = data.Poster;
+            var imgURL = data.images;
 
 
             var image = $("<img>").attr("src", imgURL);
@@ -72,12 +72,12 @@
 
             a.text(superHeroes[i]);
 
-            $("#superheroes-view").append(a);
+            $("#buttons-view").append(a);
           }
         }
 
 
-        $("#add-superhero").on("click", function(event) {
+        $("#add-superhero").click (function(event) {
           event.preventDefault();
 
           var superHero = $("#superhero-input").val().trim();
@@ -90,7 +90,7 @@
         });
 
 
-        $(document).on("click", ".superHero", displaySuperInfo);
+        $(document).click (".superHero", displaySuperInfo);
 
 
         renderButtons();
