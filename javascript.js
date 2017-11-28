@@ -1,5 +1,5 @@
 
-        var superHeroes = ["Captain America", "The Question", "Superman", "Thor"];
+        var superHeroes = ["CaptainAmerica", "TheQuestion", "Superman", "Thor"];
 
 
         function displaySuperInfo() {
@@ -18,11 +18,13 @@
         //     console.log("success got data", data); };
         //   });
         // };
-
+            console.log(data);
+//for (var i = 0; i < data.length; i++) {
+//}
             var superHeroDiv = $("<div class='superHero'>");
 
 
-            var rating = data.rating;
+            var rating = data/*[i]*/.rating;
 
 
             var pOne = $("<p>").text("Rating: " + rating);
@@ -94,3 +96,16 @@
 
 
         renderButtons();
+
+        $(".gif").on("click", function() {
+
+          var state = $(this).attr("data-state");
+
+          if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+          } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+          }
+        });
