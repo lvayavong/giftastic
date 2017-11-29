@@ -1,111 +1,108 @@
-
-        var superHeroes = ["CaptainAmerica", "TheQuestion", "Superman", "Thor"];
-
-
-        function displaySuperInfo() {
-        //
-          var superHero = $(this).attr("data-name");
-          var queryURL = "http://api.giphy.com/v1/gifs/search?api_key=rWHLYQCohxeslKwk1BVmLYSWs8L6vLkK&q=" + superHero + "&limit=5&offset=0&rating=G&lang=en";
-          // var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=rWHLYQCohxeslKwk1BVmLYSWs8L6vLkK&limit=5");
-          // xhr.done(function(data) { console.log("success got data", data); });
-        // }
-          // Creating an AJAX call for the specific movie button being clicked
-          $.ajax({
-            url: queryURL,
-            method: "GET"
-          }).done(function(data){
-        //     {
-        //     console.log("success got data", data); };
-        //   });
-        // };
-            console.log(data);
-//for (var i = 0; i < data.length; i++) {
-//}
-            var superHeroDiv = $("<div class='superHero'>");
+var superHeroes = ["CaptainAmerica", "TheQuestion", "Superman", "Thor"];
 
 
-            var rating = data/*[i]*/.rating;
+function displaySuperInfo() {
+  //
+  var superHero = $(this).attr("data-name");
+  var queryURL = "http://api.giphy.com/v1/gifs/search?api_key=rWHLYQCohxeslKwk1BVmLYSWs8L6vLkK&q=" + superHero + "&limit=5&rating=G&lang=en";
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).done(function(response) {
+
+    var results = response.data
+    for (var i = 0; i < results.length; i++) {
 
 
-            var pOne = $("<p>").text("Rating: " + rating);
+      var superHeroDiv = $("<div class='superHero'>");
 
 
-            superHeroDiv.append(pOne);
+      var rating = response.rating;
 
 
-            var url = data.url;
+      var pOne = $("<p>").text("Rating: " + results[i].rating);
 
 
-            var pTwo = $("<p>").text("URL: " + url);
+      superHeroDiv.append(pOne);
 
 
-            superHeroDiv.append(pTwo);
+      var url = response.url;
 
 
-            var imgURL = data.images;
+      var pTwo = $("<p>").text("URL: " + results[i].url);
 
 
-            var image = $("<img>").attr("src", imgURL);
+      superHeroDiv.append(pTwo);
 
 
-            superHeroDiv.append(image);
+      var imgURL = response.images;
 
 
-            $("#superheroes-view").prepend(superHeroDiv);
-          });
-
-        }
+      var image = $("<img>").attr("src", results[i].images.fixed_height.url);
 
 
-        function renderButtons() {
+      superHeroDiv.append(image);
 
 
-          $("#buttons-view").empty();
+      $("#superheroes-view").append(superHeroDiv);
+    }
 
 
-          for (var i = 0; i < superHeroes.length; i++) {
+  });
+}
 
 
-            var a = $("<button>");
 
-            a.addClass("superhero");
-
-            a.attr("data-name", superHeroes[i]);
-
-            a.text(superHeroes[i]);
-
-            $("#buttons-view").append(a);
-          }
-        }
+function renderButtons() {
 
 
-        $("#add-superhero").click (function(event) {
-          event.preventDefault();
-
-          var superHero = $("#superhero-input").val().trim();
+  $("#buttons-view").empty();
 
 
-          superHeroes.push(superHero);
+  for (var i = 0; i < superHeroes.length; i++) {
 
 
-          renderButtons();
-        });
+    var a = $("<button>");
+
+    a.addClass("superhero");
+
+    a.attr("data-name", superHeroes[i]);
+
+    a.text(superHeroes[i]);
+
+    $("#buttons-view").append(a);
+  }
+}
 
 
-        $(document).click (".superHero", displaySuperInfo);
+$("#add-superhero").click(function(event) {
+  event.preventDefault();
+
+  var superHero = $("#superhero-input").val().trim();
 
 
-        renderButtons();
+  superHeroes.push(superHero);
 
-        $(".gif").on("click", function() {
 
-          var state = $(this).attr("data-state");
+  renderButtons();
+});
 
-          if (state === "still") {
-            $(this).attr("src", $(this).attr("data-animate"));
-            $(this).attr("data-state", "animate");
-          } else {
-            $(this).attr("src", $(this).attr("data-still"));
-            $(this).attr("data-state", "still");
-          }
-        });
+
+$(document).click(".superHero", displaySuperInfo);
+
+
+renderButtons();
+
+$(".gif").on("click", function() {
+
+  var state = $(this).attr("data-state");
+
+  if (state === "still") {
+    $(this).attr("<img>", $(this).attr("data-animate"));
+    $(this).attr("data-state", "animate");
+  } else {
+    $(this).attr("<img>", $(this).attr("data-still"));
+    $(this).attr("data-state", "still");
+  }
+});
