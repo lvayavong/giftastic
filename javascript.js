@@ -37,17 +37,16 @@ function displaySuperInfo() {
       superHeroDiv.append(pTwo);
 
 
-      // var imgURL = response.images;
+      var imgURL = response.images;
 
 
       var image = $("<img>");
       image.attr("src", results[i].images.fixed_height.url + "");
-    image.attr("data-still", results[i].images.fixed_height_still.url + "");
-    image.attr('data-animate', results[i].images.fixed_height.url)
+      image.attr("data-still", results[i].images.fixed_height_still.url + "");
+      image.attr('data-animate', results[i].images.fixed_height.url)
 
-   .attr('data-state', 'still');
+        .attr('data-state', 'still');
 
-    // var image =  $("#superheroes-view").append('<img class="superHero" src="' + results[i].images.fixed_height_still.url + '">');
 
 
       superHeroDiv.append(image);
@@ -103,7 +102,7 @@ $(document).click(".superHero", displaySuperInfo);
 
 renderButtons();
 
-$("<img>").click (function() {
+$("<img>").click(function() {
 
   var state = $(this).attr("data-state");
 
@@ -115,22 +114,3 @@ $("<img>").click (function() {
     $(this).attr("data-state", "still");
   }
 });
-// $('#superheroes-view').on('click', function() {
-//
-//                 var state = $(this).attr('data-state');
-//
-//
-//                 if (state == 'still') {
-//
-//                 $(this).attr('src', $(this).data('animate'));
-//
-//                 $(this).attr('data-state', 'animate');
-//
-//                 } else {
-//
-//                 $(this).attr('src', $(this).data('still'));
-//
-//                 $(this).attr('data-state', 'still');
-//                 }
-//               });
-//             });
